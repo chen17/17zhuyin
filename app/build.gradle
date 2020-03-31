@@ -5,9 +5,11 @@ android {
     buildToolsVersion '28.0.3'
 
     defaultConfig {
-        applicationId "com.googlecode.tcime"
+        applicationId "com.ime.zhuyin17"
         minSdkVersion 3
-        targetSdkVersion 28
+        targetSdkVersion 29
+        versionName '0017'
+        versionCode 1
     }
 
     buildTypes {
