@@ -29,7 +29,8 @@
         <Key android:keyLabel=".net" android:keyOutputText=".net" />
         <Key android:keyLabel=".gov" android:keyOutputText=".gov" />
         <Key android:keyLabel=".edu" android:keyOutputText=".edu" />
-        <Key android:keyLabel=".com" android:keyOutputText=".com" android:keyEdgeFlags="right" />
+        <Key android:keyLabel=".com" android:keyOutputText=".com" />
+        <Key android:keyLabel="\@gm" android:keyOutputText="gmail.com" android:keyEdgeFlags="right" />
     </Row>
 
 </Keyboard>
