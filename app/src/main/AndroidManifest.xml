@@ -19,18 +19,21 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.ime.zhuyin17"
+    android:versionCode="20221221"
+    android:versionName="1.0"
     >
 
-    <uses-permission android:name="android.permission.VIBRATE"/>
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:icon="@drawable/icon"
+        android:usesCleartextTraffic="true"
         android:label="@string/ime_name">
 
         <service
             android:name="ZhuyinIME"
             android:label="@string/zhuyin_ime_name"
+            android:exported="true"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod"/>
@@ -42,7 +45,8 @@
 
         <activity
             android:name="ImePreferenceActivity"
-            android:label="@string/ime_name">
+            android:label="@string/ime_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
