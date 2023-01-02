@@ -22,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import java.util.ArrayList;
 
 /**
  * Contains all candidates in pages where users could move forward (next page)
@@ -68,12 +69,26 @@ public class CandidatesContainer extends LinearLayout {
 
     public void setCandidateViewListener(
             CandidateView.CandidateViewListener listener) {
+        android.util.Log.i(TAG, "setCandidateViewListener 1718 setCandidateViewListener");
         candidateView.setCandidateViewListener(listener);
     }
 
-    public void setCandidates(String words, boolean highlightDefault) {
+    public void setCandidates(ArrayList<String> candidates, boolean highlightDefault) {
+        // Assume history = "台" and candidates = {"灣", "灣大學", ...}
+        // Since we only support single character candidate, extract first
+        // character of candidates here. And skip redundant characters
+        // (second "灣" in this example).
+        // TODO(kcwu): support phrase candidate
+        StringBuilder suggest = new StringBuilder();
+        for (int i = 0; i < candidates.size(); i++) {
+            String firstChar = candidates.get(i).substring(0, 1);
+            if (suggest.indexOf(firstChar) < 0) {
+                suggest.append(firstChar);
+            }
+        }
+
         // All the words will be split into pages and shown in the candidate-view.
-        this.words = words;
+        this.words = suggest.toString();
         this.highlightDefault = highlightDefault;
         pageCount = getPageCount();
         showPage(0);
