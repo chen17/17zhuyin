@@ -55,17 +55,14 @@ public class CandidateView extends View {
 
   public CandidateView(Context context, AttributeSet attrs) {
     super(context, attrs);
-
     Resources r = context.getResources();
     candidateHighlight = r.getDrawable(R.drawable.candidate_highlight);
     candidateSeparator = r.getDrawable(R.drawable.candidate_separator);
-
     paint = new Paint();
     paint.setColor(r.getColor(R.color.candidate_normal));
     paint.setAntiAlias(true);
     paint.setTextSize(r.getDimensionPixelSize(R.dimen.candidate_font_height));
     paint.setStrokeWidth(0);
-    
     setWillNotDraw(false);
   }
   
@@ -130,7 +127,7 @@ public class CandidateView extends View {
   }
 
   private void drawCandidates(Canvas canvas) {
-    final int count = candidates.length(); 
+    final int count = candidates.length();
     if (count > 0) {
       // Draw the separator at the left edge of the first candidate. 
       candidateSeparator.setBounds(
