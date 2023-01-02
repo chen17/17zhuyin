@@ -24,10 +24,12 @@ import android.view.inputmethod.InputConnection;
  * Updates the editing field and handles composing-text. 
  */
 public abstract class Editor {
+  private static final int KEEP_HISTORY_LENGTH = 5;
   protected StringBuilder composingText = new StringBuilder();
   private boolean canCompose;
   private boolean enterAsLineBreak;
-  
+  private StringBuilder commitHistory = new StringBuilder();;
+
   public CharSequence composingText() {
     return composingText;
   }
@@ -36,11 +38,20 @@ public abstract class Editor {
     return composingText.length() > 0;
   }
 
+  public CharSequence commitHistory() {
+    return commitHistory;
+  }
+
+  public void clearCommitHistory() {
+    commitHistory.setLength(0);
+  }
+
   /**
    * Resets the internal state of this editor, typically called when a new input
    * session commences.
    */
   public void start(int inputType) {
+    clearCommitHistory();
     composingText.setLength(0);
     canCompose = true;
     enterAsLineBreak = false;
@@ -89,11 +100,19 @@ public abstract class Editor {
     return false;
   }
 
+  private void appendCommitHistory(CharSequence text) {
+    commitHistory.append(text.toString());
+    if (commitHistory.length() > KEEP_HISTORY_LENGTH) {
+      commitHistory.delete(0, commitHistory.length() - KEEP_HISTORY_LENGTH);
+    }
+  }
+
   /**
    * Commits the given text to the editing field.
    */
   public boolean commitText(InputConnection ic, CharSequence text) {
     if (ic != null) {
+      appendCommitHistory(text);
       if (text.length() > 1) {
         // Batch edit a sequence of characters.
         ic.beginBatchEdit();
